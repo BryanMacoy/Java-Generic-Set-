@@ -1,0 +1,39 @@
+package hw05;
+
+public class SortedSetUtils {
+
+	private SortedSetUtils() {
+	}
+
+	public static SortedSet intersection(SortedSet set1, SortedSet set2) {
+		SortedSet intersectionSet = new SortedSet();
+		SortedSet setA =  set1;
+		SortedSet setB =  set2;
+		for (int i = 0; i < setA.size(); i++) {
+			if (setB.exists(setA.get(i))) {
+				intersectionSet.add(setA.get(i));
+				setB.remove(setA.get(i));
+				setA.remove(setA.get(i));
+			}
+		}
+		return intersectionSet;
+	}
+
+	public static SortedSet union(SortedSet set1, SortedSet set2) {
+		SortedSet unionSet = new SortedSet();
+		SortedSet setA = set1;
+		SortedSet setB = set2;
+		for (int i = 0; i < setA.size(); i++) {
+			if (setB.exists(setA.get(i))) {
+				unionSet.add(setA.get(i));
+				setA.remove(setA.get(i));
+				setB.remove(setA.get(i));
+			}
+		}
+		for (int i = 0; i < setA.size(); i++)
+			unionSet.add(setA.get(i));
+		for (int i = 0; i < setB.size(); i++)
+			unionSet.add(setB.get(i));
+		return unionSet;
+	}
+}
