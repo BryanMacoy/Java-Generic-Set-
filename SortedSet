@@ -64,7 +64,7 @@ public class SortedSet<E extends Comparable<E>> {
 	/** Define method to remove */
 	public void remove(E value) {
 		// Shift data to the left
-		for (int i = 0; i < size; i++) {
+		for (int i = 0; i < size(); i++) {
 			if (set[i] == value) {
 				for (int j = i; j < size - 1; j++) {
 					set[j] = set[j + 1];
@@ -128,52 +128,12 @@ public class SortedSet<E extends Comparable<E>> {
 	}// ************************************************************************
 
 	private void resize() {
-		if (size >= set.length) {
+		if (size() >= set.length) {
 			E[] newSet = (E[]) (new Comparable[set.length * 2]);
 			System.arraycopy(set, 0, newSet, 0, size);
 			set = newSet;
 		}
 	}// ************************************************************************
 
-	public static void main(String args[]) {
-		SortedSet<String> integerArray = new SortedSet<>();// create a list
-
-		System.out.println(integerArray.size());
-
-		integerArray.add("one");
-		System.out.println("(add1) " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.add("two");
-		System.out.println("(add2) " + integerArray);
-		System.out.println(integerArray.size());
-		System.out.println("Does two exists?  " + integerArray.exists("two"));
-		integerArray.add("three");
-		System.out.println("(add3) " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.remove("two");
-		System.out.println("remove() " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.addAll("2xTwo", "four", "five");
-		System.out.println("addAll() " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.remove("five");
-		System.out.println("remove() " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
-		System.out.println("addAll() " + integerArray);
-		System.out.println(integerArray.size());
-		System.out.println(integerArray.exists("one"));
-		System.out.println("Does two exists?  " + integerArray.exists("two"));
-		System.out.println("Current number of elements in the array: " + integerArray.size());
-		System.out.println("Value at 4th index: " + integerArray.get(4));
-		integerArray.add("What?");
-		System.out.println("(resize) " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
-		System.out.println("addAll() " + integerArray);
-		System.out.println(integerArray.size());
-		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
-		System.out.println("addAll() " + integerArray);
-		System.out.println(integerArray.size());
-	}
+	
 }
