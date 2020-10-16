@@ -1,0 +1,179 @@
+package hw05;
+//https://www.daniweb.com/programming/software-development/threads/383242/generics-union-a-set
+// https://www.geeksforgeeks.org/how-do-dynamic-arrays-work/
+//https://examples.javacodegeeks.com/dynamic-array-java-example/
+public class SortedSet<E extends Comparable<E>> {
+
+	private int size = 10; // Specifying the current size of the list.
+	private E[] set = (E[]) (new Comparable[size]); // An array of generic type holding the data.
+
+	/** Constructor */
+	public SortedSet() {
+		this.size = 0;
+		// this.set = (E[]) (new Comparable[size]);
+	}
+
+	/** Constructor which accepts one integer parameter. */
+	public SortedSet(int capacity) {
+		// Java arrays and type variables don't mix very well
+		this.size = 0;
+		this.set = (E[]) new Comparable[capacity];
+	}
+
+	/** Constructor which accepts an array or a comma-separated list of values. */
+	public SortedSet(E... values) {
+		// this.set = (E[]) (new Comparable[values.length]);
+		// Make a deep copy to prevent shared references.
+		// System.arraycopy(values, 0, this.set, 0, values.length);
+		for (E e : values) {
+			add(e);
+		}
+	}
+
+	// Create a copy constructor which will make a deep copy of a SortedSet.
+	public SortedSet(SortedSet[] sortedSet) {
+		// Make a deep copy to prevent shared references.
+		System.arraycopy(sortedSet, 0, this.set, 0, sortedSet.length);
+	}
+
+	public boolean exists(E value) {
+		for (int i = 0; i < size; i++)
+			if (value.equals(set[i]))
+				return true;
+		return false;
+	}// ************************************************************************
+
+	public void add(E value) {
+		if (!this.exists(value)) {
+			resize();
+			// Move the elements to the right after the specified index
+			for (int i = size - 1; i >= set.length; i--)
+				set[i + 1] = set[i];
+
+			// Insert new element to set[size]
+			set[size] = value;
+			size++;
+		}
+	}// ************************************************************************
+
+	public void addAll(E... values) {
+		for (int i = 0; i < values.length; i++)
+			add(values[i]);
+	}// ************************************************************************
+
+	/** Define method to remove */
+	public void remove(E value) {
+		// Shift data to the left
+		for (int i = 0; i < size; i++) {
+			if (set[i] == value) {
+				for (int j = i; j < size - 1; j++) {
+					set[j] = set[j + 1];
+				}
+				size--;
+			}
+		}
+	}// ************************************************************************
+
+	/**
+	 * This method shall take an integer index as a parameter and return the data at
+	 * the given index.
+	 */
+	public E get(int index) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		return set[index];
+	}// ************************************************************************
+
+	// method to return true if this MyArray is equal to other
+	@Override
+	public boolean equals(Object obj) {
+		// obj of MyArray type
+		if (obj instanceof SortedSet<?>) {
+			// cast the Object to MyArray
+			SortedSet<?> other = ((SortedSet<?>) obj);
+
+			// length of both MyArray are same
+			if (set.length == other.set.length) {
+				// loop over the data elements
+				for (int i = 0; i < set.length; i++) {
+					// if data type of both the objects are same
+					if (set[i].getClass().equals(other.set[i].getClass())) {
+						// if ith element of both array not equal
+						if (set[i].compareTo((E) other.set[i]) != 0)
+							return false;
+					} else // data type are not equal
+						return false;
+				}
+
+				return true; // all elements are equal
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder("[");
+		for (int i = 0; i < size; i++) {
+			result.append(set[i]);
+			if (i < size - 1)
+				result.append(", ");
+		}
+		return result.toString() + "]";
+	}// ************************************************************************
+
+	/** This method returns the current size of the array. */
+	public int size() {
+		return size;
+	}// ************************************************************************
+
+	private void resize() {
+		if (size >= set.length) {
+			E[] newSet = (E[]) (new Comparable[set.length * 2]);
+			System.arraycopy(set, 0, newSet, 0, size);
+			set = newSet;
+		}
+	}// ************************************************************************
+
+	public static void main(String args[]) {
+		SortedSet<String> integerArray = new SortedSet<>();// create a list
+
+		System.out.println(integerArray.size());
+
+		integerArray.add("one");
+		System.out.println("(add1) " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.add("two");
+		System.out.println("(add2) " + integerArray);
+		System.out.println(integerArray.size());
+		System.out.println("Does two exists?  " + integerArray.exists("two"));
+		integerArray.add("three");
+		System.out.println("(add3) " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.remove("two");
+		System.out.println("remove() " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.addAll("2xTwo", "four", "five");
+		System.out.println("addAll() " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.remove("five");
+		System.out.println("remove() " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
+		System.out.println("addAll() " + integerArray);
+		System.out.println(integerArray.size());
+		System.out.println(integerArray.exists("one"));
+		System.out.println("Does two exists?  " + integerArray.exists("two"));
+		System.out.println("Current number of elements in the array: " + integerArray.size());
+		System.out.println("Value at 4th index: " + integerArray.get(4));
+		integerArray.add("What?");
+		System.out.println("(resize) " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
+		System.out.println("addAll() " + integerArray);
+		System.out.println(integerArray.size());
+		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
+		System.out.println("addAll() " + integerArray);
+		System.out.println(integerArray.size());
+	}
+}
