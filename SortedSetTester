@@ -1,9 +1,9 @@
 package hw05;
 
 public class SortedSetTester {
-	
+
 	public static void main(String args[]) {
-		//SortedSet<String> integerArray = new SortedSet<>();// create a list
+		// SortedSet<String> integerArray = new SortedSet<>();// create a list
 		SortedSet integerArray = new SortedSet();
 		System.out.println(integerArray.size());
 
@@ -42,75 +42,28 @@ public class SortedSetTester {
 		integerArray.addAll("2xFive", "six", "seven", "eight", "nine", "ten");
 		System.out.println("addAll() " + integerArray);
 		System.out.println(integerArray.size());
-		
+
 		integerArray.remove("2xFive");
 		System.out.println("remove() " + integerArray);
 		System.out.println(integerArray.size());
 		integerArray.remove("ten");
 		System.out.println("remove() " + integerArray);
 		System.out.println(integerArray.size());
+
+		SortedSet setA = new SortedSet();
+		SortedSet setB = new SortedSet();
+
+		for (int i = 1; i < 11; i++) {
+			setA.add(i);
+		}
+		for (int i = 6; i < 16; i++) {
+			setB.add(i);
+		}
+		System.out.println(setA);
+		System.out.println(setB);
+		
+		
+		//System.out.println(SortedSetUtils.intersection(setA,setB));
+		System.out.println(SortedSetUtils.union(setA,setB));
 	}
-	
 }
-	
-
-
-
-
-//	   Random r=new Random();
-//	   Set<Integer> s1=new Set<Integer>();
-//	   Set<Integer> s2=new Set<Integer>();
-//	   int k;
-//	   for (int i = 0; i < 10; i++){
-//	   k=r.nextInt(10);
-//	   s1.add(new Integer(k));
-//	   }
-//	   for (int i = 0; i < 15; i++){
-//	   k=r.nextInt(10);
-//	   s2.add(new Integer(k));
-//	   }
-//	   System.out.println("Set1: "+s1.al);
-//	   System.out.println("Set2: "+s2.al);
-//	   System.out.println("Union: "+Set.union(s1,s2)+" Size: "+Set.union(s1,s2).size());
-//	   System.out.println("Intersection: "+Set.intersection(s1,s2)+" Size: "+Set.intersecAtion(s1,s2).size());
-//	   System.out.println("Difference: "+Set.difference(s1,s2)+" Size: "+Set.difference(s1,s2).size());
-
-
-
-	   
-	   
-//	   // Set which stores some Singer
-//	   Set<String> singers = new HashSet<String>();
-//	 singers.add("Amitabh Bacchan");
-//	 singers.add("Shan");
-//	 singers.add("Medona");
-//	   
-//	   // Another Set which stores Actors
-//	   Set<String> actors = new HashSet<String>();
-//	 actors.add("Amitabh Bacchan");
-//	 actors.add("tom cruise");
-//	 actors.add("SRK");
-//	   
-//	   // Calculating Intersection of two Set in Java
-//	   Set<String> intersection = Sets.intersection(actors, singers);
-//	   System.out.printf("Intersection of two Set %s and %s in Java is %s %n",
-//	 singers.toString(), actors.toString(), intersection.toString());
-//	   System.err.println("Number of elements common in two Set : "
-//
-//	                            + intersection.size());
-//
-//
-//	   Set<String> union = Sets.union(actors, singers);
-//	   System.out.printf("Union of two Set %s and %s in Java is %s %n",
-//	 singers.toString(), actors.toString(), union.toString());
-//	   System.out.println("total number of element in union of two Set is : "
-//
-//	                             + union.size());
-	   //}
-	   
-	   
-	   
-	   
-	   
-	   
-
