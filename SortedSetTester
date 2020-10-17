@@ -4,13 +4,13 @@ public class SortedSetTester {
 
 	public static void main(String args[]) {
 		// SortedSet<String> integerArray = new SortedSet<>();// create a list
-		SortedSet integerArray = new SortedSet();
+		SortedSet<String> integerArray = new SortedSet<>();
 		System.out.println(integerArray.size());
 
-		integerArray.add(1);
+		integerArray.add("okay");
 		System.out.println("(add1) " + integerArray);
 		System.out.println(integerArray.size());
-		integerArray.add('t');
+		integerArray.add("sad");
 		System.out.println("(add2) " + integerArray);
 		System.out.println(integerArray.size());
 		System.out.println("Does two exists?  " + integerArray.exists("two"));
@@ -50,20 +50,21 @@ public class SortedSetTester {
 		System.out.println("remove() " + integerArray);
 		System.out.println(integerArray.size());
 
-		SortedSet setA = new SortedSet();
-		SortedSet setB = new SortedSet();
+		SortedSet<Integer> setA = new SortedSet<>();
+		SortedSet<Integer>  setB = new SortedSet<>();
 
-		for (int i = 1; i < 11; i++) {
-			setA.add(i);
-		}
-		for (int i = 6; i < 16; i++) {
-			setB.add(i);
-		}
+		
+			setA.addAll(1,2,3,4,5,6,7,8,9,10);
+		
+		
+			setB.addAll(6,7,8,9,10,11,12,13,14,15);
+		
 		System.out.println(setA);
 		System.out.println(setB);
 		
 		
-		//System.out.println(SortedSetUtils.intersection(setA,setB));
+	    System.out.println(SortedSetUtils.intersection(setA,setB));
 		System.out.println(SortedSetUtils.union(setA,setB));
+		
 	}
 }
