@@ -8,35 +8,38 @@ public class SortedSet<E extends Comparable<E>> {
 	private int size; // Specifying the current size of the list.
 	private E[] set = (E[]) (new Comparable[size]); // An array of generic type holding the data.
 
+	//************************************************************************
+	
 	/** Constructor */
 	public SortedSet() {
-		this.size = 10;
-		this.set = (E[]) (new Comparable[size]);
+		this.set = (E[]) (new Comparable[10]);
 	}
 
 	/** Constructor which accepts one integer parameter. */
 	public SortedSet(int capacity) {
 		// Java arrays and type variables don't mix very well
-		this.size = 0;
 		this.set = (E[]) new Comparable[capacity];
 	}
 
 	/** Constructor which accepts an array or a comma-separated list of values. */
 	public SortedSet(E... values) {
-		 this.set = (E[]) (new Comparable[values.length]);
-		 //Make a deep copy to prevent shared references.
-		 System.arraycopy(values, 0, this.set, 0, values.length);
-//		for (E element : values) {
-//			add(element);
-//		}
+//		 this.set = (E[]) (new Comparable[values.length]);
+//		 //Make a deep copy to prevent shared references.
+//		 System.arraycopy(values, 0, this.set, 0, values.length);
+		for (E element : values) {
+			add(element);
+		}
 	}
 
 	// Create a copy constructor which will make a deep copy of a SortedSet.
-	public SortedSet(SortedSet<E>[] sortedSet) {
+	public SortedSet(SortedSet<E>[] SortedSet) {
 		// Make a deep copy to prevent shared references.
-		System.arraycopy(sortedSet, 0, this.set, 0, sortedSet.length);
+		System.arraycopy(SortedSet, 0, this.set, 0, SortedSet.length);
 	}
 
+	//************************************************************************
+	
+	
 	public boolean exists(E value) {
 		for (int i = 0; i < size; i++)
 			if (value.equals(set[i]))
@@ -50,7 +53,6 @@ public class SortedSet<E extends Comparable<E>> {
 			// Move the elements to the right after the specified index
 			for (int i = size - 1; i >= set.length; i--)
 				set[i + 1] = set[i];
-
 			// Insert new element to set[size]
 			set[size] = value;
 			size++;
@@ -85,6 +87,12 @@ public class SortedSet<E extends Comparable<E>> {
 		return set[index];
 	}// ************************************************************************
 
+	/** This method returns the current size of the array. */
+	public int size() {
+		return size;
+	}// ************************************************************************
+	
+	
 	// method to return true if this MyArray is equal to other
 	@Override
 	public boolean equals(Object obj) {
@@ -121,11 +129,6 @@ public class SortedSet<E extends Comparable<E>> {
 				result.append(", ");
 		}
 		return result.toString() + "]";
-	}// ************************************************************************
-
-	/** This method returns the current size of the array. */
-	public int size() {
-		return size;
 	}// ************************************************************************
 
 	private void resize() {
