@@ -141,11 +141,16 @@ public class SortedSet<E extends Comparable<E>> {
 		SortedSet setA = set1;
 		for (int i = 0; i < intersectionSet.size(); i++) {
 			// Sort in Ascending Order
-			if (setA.get(i).compareTo(setA.get(i + 1)) > 0) {
-				intersectionSet = setA.get(i);
+			if (setA.exists(setA.get(i).compareTo(setA.get(i + 1)) > 0)) {
+				intersectionSet.add(setA.get(i));
 				setA.get(i) = setA.get(i + 1);
 				setA.get(i + 1) = intersectionSet;
 			}
 		}
+	}
+	if (setB.exists(setA.get(i))) {
+		intersectionSet.add(setA.get(i));
+		setB.remove(setA.get(i));
+		setA.remove(setA.get(i));
 	}
 }
