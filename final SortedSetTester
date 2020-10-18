@@ -1,0 +1,107 @@
+/* Ray Bryan Macoy
+ * Course CS 2013, Section 03
+ * October 15,2020
+ * Purpose: Use Generics and Lists to create a Generic Set class. 
+ * Description: This class Tests the SortedSet And SortedSetUtils Classes.
+ */
+
+package hw05;
+
+public class SortedSetTester {
+
+	public static void main(String args[]) {
+		
+		/** create a set list*/
+		SortedSet<String> petSet = new SortedSet<>();
+		System.out.println("\n Current set capacity: " + petSet.capacity());	
+		/****************************
+		* Add one or more values:   *
+		*****************************/
+		petSet.add("dog");
+		System.out.println("\n ***************************\n"
+						 + " * Add one or more values: *\n" 
+						 + " ***************************\n\n" 
+				         + " Set:\t" + petSet
+				         + "\n Set size: " + petSet.size());
+		
+		petSet.add("cat");
+		System.out.println(" Set:\t" + petSet
+				         + "\n Set size: " + petSet.size());
+		
+		petSet.addAll("hamster", "bird", "fish", "computer",  "snake", "frog", "duck", "pig", "lizard");
+		System.out.println(" Set:\t" + petSet
+				         + "\n Set size: " + petSet.size());
+		System.out.println("\n Current set capacity: " + petSet.capacity());
+
+		/*******************
+		*  Remove a value  *
+		********************/
+		petSet.remove("computer");
+		System.out.println("\n *******************\n"
+						 + " * Remove a value: *\n" 
+						 + " *******************\n\n" 
+				         + " Set:\t" + petSet
+				         + "\n Set size: " + petSet.size());
+		
+		/****************************
+		*  Check if a value exists: *
+		****************************/
+		System.out.println("\n ****************************\n"
+						 + " * Check if a value exists: *\n" 
+						 + " ****************************\n\n" 
+				         + " Is there a cat in the set? \t" + petSet.exists("cat")
+				         + "\n Is there a tiger in the set? \t" + petSet.exists("tiger")
+				         + "\n What is the value in the 4th index? \t" + petSet.get(4)
+						 + "\n What is the value in the 8th index? \t" + petSet.get(8));
+
+		/******************************
+		*  Compare two separate sets  *
+		*******************************/
+		SortedSet<Integer> setA = new SortedSet<>();
+		SortedSet<Integer> setB = new SortedSet<>();
+		
+		for(int i=1; i<11;i++) {
+			setA.add(i);
+		}
+		
+		for(int i=1; i<11;i++) {
+			setB.add(i);
+		}
+		
+		petSet.remove("computer");
+		System.out.println("\n ***********************************************\n"
+						 + " * Compare two separate sets that are similar: *\n" 
+						 + " ***********************************************\n\n" 
+				         + " Set A:\t" + setA
+				         + "\n Set size: " + setA.size()
+				         + "\n\n Set B:\t" + setB
+				         + "\n Set size: " + setB.size()
+				         + "\n Is set A and set B equal?   " + setA.equals(setB));
+		
+		for(int i=1; i<11;i++) {
+			setB.remove(i);
+		}
+
+		System.out.println("\n Remove all values from SetB: " + setB);
+		
+		for(int i= 6; i<20;i++) {
+			setB.add(i);
+		}
+
+		System.out.println("\n New SetB: " + setB);
+		System.out.println("\n SetA Capacity: " + setA.capacity());
+		System.out.println(" SetB Capacity: " + setB.capacity());
+		System.out.println("\n **************************************\n"
+				 + " * Compare two separate sets that are different: *\n" 
+				 + " ***********************************************\n\n"
+		         + " Set A:\t" + setA
+		         + "\n Set size: " + setA.size()
+		         + "\n\n Set B:\t" + setB
+		         + "\n Set size: " + setB.size()
+		         + "\n Is set A and set B equal?   " + setA.equals(setB));
+		
+		System.out.println("\n Similar values within the sets: " + SortedSetUtils.intersection(setA, setB));
+		System.out.println("\n Combine distinct values within the sets: " + SortedSetUtils.union(setA, setB));
+	}
+}
+
