@@ -1,0 +1,150 @@
+/* Ray Bryan Macoy
+ * Course CS 2013, Section 03
+ * October 15,2020
+ * Purpose: Use Generics and Lists to create a Generic Set class. 
+ * Description: This class creates a data structure set which does not allow duplicate values.
+ */
+
+package hw05;
+
+import java.util.Arrays;
+
+public class SortedSet<E extends Comparable<E>> {
+	/** Data Fields */
+	private int size; // Specifying the current size of the list.
+	private E[] set = (E[]) (new Comparable[size]); // An array of generic type holding the data.
+
+	// ************************************************************************
+
+	/** Constructor */
+	public SortedSet() {
+		this.set = (E[]) (new Comparable[10]);
+	}
+
+	/** Constructor which accepts one integer parameter. */
+	public SortedSet(int capacity) {
+		this.set = (E[]) new Comparable[capacity];
+	}
+
+	/** Constructor which accepts an array or a comma-separated list of values. */
+	public SortedSet(E... values) {
+		this.set = (E[]) (new Comparable[values.length]);
+	}
+
+	// Create a copy constructor which will make a deep copy of a SortedSet.
+	public SortedSet(SortedSet<E>[] SortedSet) {
+		// Make a deep copy to prevent shared references.
+		System.arraycopy(SortedSet, 0, this.set, 0, SortedSet.length);
+	}
+
+	// ************************************************************************
+	
+	/** Method that checks if a value already exists in a set */
+	public boolean exists(E value) {
+		for (int i = 0; i < size; i++)
+			if (value.equals(set[i]))
+				return true;
+		return false;
+	}
+
+	/** Method that adds a value to a set */
+	public void add(E value) {
+		if (!this.exists(value)) {
+			resize();
+			// Move the elements to the right after the specified index
+			for (int i = size - 1; i >= set.length; i--)
+				set[i + 1] = set[i];
+			// Insert new element to set[size]
+			set[size] = value;
+			//Increase size count by one
+			size++;
+			//Sort the set in ascending order
+			Arrays.sort(set, 0, size());
+		}
+	}
+
+	/** Method that adds multiple values to a set*/
+	public void addAll(E... values) {
+		resize();
+		for (int i = 0; i < values.length; i++)
+			add(values[i]);
+	}
+
+	/** Method to remove a value from a set */
+	public void remove(E value) {
+		// Shift data to the left
+		for (int i = 0; i < size(); i++) {
+			if (set[i] == value) {
+				for (int j = i; j < size - 1; j++) {
+					// Insert new element to set[j]
+					set[j] = set[j + 1];
+				}
+				//Reduce size count by one
+				size--;
+			}
+		}
+	}
+
+	/** Method to get the value of a given index*/
+	public E get(int index) {
+		if (index < 0 || index >= size)
+			throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+		return set[index];
+	}
+
+	/** Method to return the current number of elements of the set. */
+	public int size() {
+		return size;
+	}
+	
+	/** Method to return the current capacity of the set. */
+	public int capacity() {
+		return set.length;
+	}
+
+	/** Method to check if two sets are equal */
+	@Override
+	public boolean equals(Object obj) {
+		// Obj of SortedSet type
+		if (obj instanceof SortedSet<?>) {
+			// Cast the Object to SortedSet
+			SortedSet<E> isEqual = ((SortedSet<E>) obj);
+
+			if (set.length == isEqual.set.length) {
+				// Loop over the data set elements
+				for (int i = 0; i < set.length; i++) {
+					// Check if the data type of both sets are the same
+					if (set[i].getClass().equals(isEqual.set[i].getClass())) {
+						// Check if ith element of both sets not equal
+						if (set[i].compareTo((E) isEqual.set[i]) != 0)
+							return false;
+					} else // data type are not equal
+						return false;
+				}
+				return true; // all elements are equal
+			}
+		}
+		return false;
+	}
+
+	/** Method to print a string representation of the set*/
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder("{");
+		for (int i = 0; i < size; i++) {
+			result.append(set[i]);
+			if (i < size - 1)
+				result.append(", ");
+		}
+		return result.toString() + "}";
+	}
+
+	/** Method to double the capacity of the array when space runs out  */
+	private void resize() {
+		if (size() >= set.length) {
+			E[] newSet = (E[]) (new Comparable[set.length * 2]);
+			System.arraycopy(set, 0, newSet, 0, size);
+			set = newSet;
+		}
+	}// ************************************************************************
+}
