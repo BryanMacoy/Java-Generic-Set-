@@ -1,4 +1,4 @@
-package hw05;
+import java.util.Arrays;
 
 public class SortedSet<E extends Comparable<E>> {
 
@@ -10,11 +10,13 @@ public class SortedSet<E extends Comparable<E>> {
 	/** Constructor */
 	public SortedSet() {
 		this.set = (E[]) (new Comparable[10]);
+		//Arrays.sort(set,0,set.length);
 	}
 
 	/** Constructor which accepts one integer parameter. */
 	public SortedSet(int capacity) {
 		this.set = (E[]) new Comparable[capacity];
+		Arrays.sort(set,0,set.length);
 	}
 
 	/** Constructor which accepts an array or a comma-separated list of values. */
@@ -22,10 +24,12 @@ public class SortedSet<E extends Comparable<E>> {
 		this.set = (E[]) (new Comparable[values.length]);
 		// Make a deep copy to prevent shared references.
 		System.arraycopy(values, 0, this.set, 0, values.length);
+		Arrays.sort(set,0,set.length);
 	}
 
 	// Create a copy constructor which will make a deep copy of a SortedSet.
 	public SortedSet(SortedSet<E>[] SortedSet) {
+		Arrays.sort(SortedSet,0,set.length);
 		// Make a deep copy to prevent shared references.
 		System.arraycopy(SortedSet, 0, this.set, 0, SortedSet.length);
 	}
@@ -48,6 +52,7 @@ public class SortedSet<E extends Comparable<E>> {
 			// Insert new element to set[size]
 			set[size] = value;
 			size++;
+			Arrays.sort(set,0,size());
 		}
 	}// ************************************************************************
 
@@ -127,6 +132,7 @@ public class SortedSet<E extends Comparable<E>> {
 		if (size() >= set.length) {
 			E[] newSet = (E[]) (new Comparable[set.length * 2]);
 			System.arraycopy(set, 0, newSet, 0, size);
+			//Arrays.sort(newSet);
 			set = newSet;
 		}
 	}// ************************************************************************
@@ -136,21 +142,35 @@ public class SortedSet<E extends Comparable<E>> {
 	 * sorting algorithm (given in pseudocode). NOTE: This method does not return a
 	 * new array, just sorts the existing array.
 	 */
-	public void sort(SortedSet set1) {
-		SortedSet intersectionSet = new SortedSet<>();
-		SortedSet setA = set1;
-		for (int i = 0; i < intersectionSet.size(); i++) {
+	public static SortedSet sort(SortedSet set) {
+		SortedSet sorted = new SortedSet<>();
+		SortedSet setA = set;
+
+		for (int i = 0; i < set.size(); i++) {
 			// Sort in Ascending Order
-			if (setA.exists(setA.get(i).compareTo(setA.get(i + 1)) > 0)) {
-				intersectionSet.add(setA.get(i));
-				setA.get(i) = setA.get(i + 1);
-				setA.get(i + 1) = intersectionSet;
+			if (setA.get(i).compareTo(setA.get(i + 1)) > 0) {
+				sorted.add(setA.get(i));
+				// setA.get(i) = setA.get(i + 1);
+				// setA.get(i + 1) = intersectionSet;
 			}
+
 		}
+		return sorted;
 	}
-	if (setB.exists(setA.get(i))) {
-		intersectionSet.add(setA.get(i));
-		setB.remove(setA.get(i));
-		setA.remove(setA.get(i));
-	}
+
+//	public void sort() {
+//		boolean sorted = false;
+//		while (!sorted) {
+//			sorted = true;
+//			for (int i = 0; i < set.length - 1; i++) {
+//				// Sort in Ascending Order
+//				if (set[i].compareTo(set[i + 1]) > 0) {
+//					E temp = set[i];
+//					set[i] = set[i + 1];
+//					set[i + 1] = temp;
+//					sorted = false;
+//				}
+//			}
+//		}
+//	}
 }
