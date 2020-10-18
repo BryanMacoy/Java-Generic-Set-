@@ -14,24 +14,29 @@ public class SortedSetUtils {
 
 	/** Method to find similarities between two sets*/
 	public static SortedSet intersection(SortedSet set1, SortedSet set2) {
+		//Create sets
 		SortedSet intersectionSet = new SortedSet<>();
 		SortedSet setA = set1;
 		SortedSet setB = set2;
+		//If the 2 sets share a value, add it to the new set
 		for (int i = 0; i < set1.size(); i++) {
 			if (setB.exists(setA.get(i))) {
 				intersectionSet.add(setA.get(i));
 				setB.remove(setA.get(i));
 			}
 		}
+		// Return new set of similar values
 		return intersectionSet;
 	}
 
 	/** Method to combine two sets*/
 	public static SortedSet union(SortedSet set1, SortedSet set2) {
+		//Create sets
 		SortedSet unionSet = new SortedSet<>();
 		SortedSet setA = set1;
 		SortedSet setB = set2;
 
+		// If the 2 sets share a value, add it to the new set
 		for (int i = 0; i < set1.size(); i++) {
 			if (setB.exists(setA.get(i))) {
 				unionSet.add(setA.get(i));
@@ -39,11 +44,12 @@ public class SortedSetUtils {
 				setB.remove(setA.get(i));
 			}
 		}
+		// Add the other values to the new set
 		for (int i = 0; i < set1.size(); i++)
 			unionSet.add(setA.get(i));
 		for (int i = 0; i < setB.size(); i++)
 			unionSet.add(setB.get(i));
-
+		// Return new union set of all distinct values
 		return unionSet;
 	}
 }
