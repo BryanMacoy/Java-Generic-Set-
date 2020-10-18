@@ -1,0 +1,49 @@
+/* Ray Bryan Macoy
+ * Course CS 2013, Section 03
+ * October 15,2020
+ * Purpose: Use Generics and Lists to create a Generic Set class. 
+ * Description: This class creates generic methods to modify two given sets.
+ */
+
+package hw05;
+
+public class SortedSetUtils {
+	/** Constructor*/
+	private SortedSetUtils() {
+	}
+
+	/** Method to find similarities between two sets*/
+	public static SortedSet intersection(SortedSet set1, SortedSet set2) {
+		SortedSet intersectionSet = new SortedSet<>();
+		SortedSet setA = set1;
+		SortedSet setB = set2;
+		for (int i = 0; i < set1.size(); i++) {
+			if (setB.exists(setA.get(i))) {
+				intersectionSet.add(setA.get(i));
+				setB.remove(setA.get(i));
+			}
+		}
+		return intersectionSet;
+	}
+
+	/** Method to combine two sets*/
+	public static SortedSet union(SortedSet set1, SortedSet set2) {
+		SortedSet unionSet = new SortedSet<>();
+		SortedSet setA = set1;
+		SortedSet setB = set2;
+
+		for (int i = 0; i < set1.size(); i++) {
+			if (setB.exists(setA.get(i))) {
+				unionSet.add(setA.get(i));
+				setA.remove(setA.get(i));
+				setB.remove(setA.get(i));
+			}
+		}
+		for (int i = 0; i < set1.size(); i++)
+			unionSet.add(setA.get(i));
+		for (int i = 0; i < setB.size(); i++)
+			unionSet.add(setB.get(i));
+
+		return unionSet;
+	}
+}
